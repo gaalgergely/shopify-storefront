@@ -18,15 +18,36 @@ class shopProvider extends Component {
         isMenuOpen: false
     }
 
+    componentDidMount() {
+
+        if (localStorage.checkout_id)
+        {
+            this.fetchCheckout(localStorage.checkout_id);
+
+        } else {
+            
+            this.createCheckout();
+        }
+    }
+
     createCheckout = async () => {
 
+        client.checkout.create().then((checkout) => {
+                    
+            localStorage.setItem("checkout_id", checkout.id);
+            this.setState({checkout: checkout});
+        });
     }
 
-    fetchCheckout = async () => {
+    fetchCheckout = async (checkoutId) => {
 
+        client.checkout.fetch(checkoutId).then((checkout) => {
+            
+            this.setState({checkout: checkout});
+        });
     }
 
-    addITemToCheckout = async () => {
+    addItemToCheckout = async () => {
 
     }
 
@@ -36,10 +57,18 @@ class shopProvider extends Component {
 
     fetchAllProducts = async () => {
 
+        client.product.fetchAll().then((products) => {
+
+            this.setState({products: products});
+        });
     }
 
     fetchProductWithHandle = async (handle) => {
 
+        client.product.fetchByHandle(handle).then((product) => {
+        
+            this.setState({product: product});
+        });
     }
 
     closeCart = () => {}
@@ -51,8 +80,22 @@ class shopProvider extends Component {
     openMenu = () => {}
 
     render() {
+
         return (
-            <ShopContext.Provider>
+            <ShopContext.Provider 
+                value={{ 
+                    ...this.state,
+                    fetchAllProducts: this.fetchAllProducts,
+                    fetchProductWithHandle: this.fetchProductWithHandle,
+                    addItemToCheckout: this.addItemToCheckout,
+                    removeLineItem: this.removeLineItem,
+                    openCart: this.openCart,
+                    closeCart: this.closeCart,
+                    openMenu: this.openMenu,
+                    closeMenu: this.closeMenu
+                }}
+            >
+
                 {this.props.children}
             </ShopContext.Provider>
         )
