@@ -71,9 +71,9 @@ class shopProvider extends Component {
         });
     }
 
-    closeCart = () => {}
+    closeCart = () => { this.setState({ isCartOpen: false }) }
 
-    openCart = () => {}
+    openCart = () => { this.setState({ isCartOpen: true }) }
 
     closeMenu = () => {}
 
