@@ -22,11 +22,11 @@ class shopProvider extends Component {
 
         if (localStorage.checkout_id)
         {
-            this.fetchCheckout(localStorage.checkout_id);
+            this.fetchCheckout(localStorage.checkout_id)
 
         } else {
             
-            this.createCheckout();
+            this.createCheckout()
         }
     }
 
@@ -34,8 +34,8 @@ class shopProvider extends Component {
 
         client.checkout.create().then((checkout) => {
                     
-            localStorage.setItem("checkout_id", checkout.id);
-            this.setState({checkout: checkout});
+            localStorage.setItem("checkout_id", checkout.id)
+            this.setState({checkout: checkout})
         });
     }
 
@@ -43,31 +43,50 @@ class shopProvider extends Component {
 
         client.checkout.fetch(checkoutId).then((checkout) => {
             
-            this.setState({checkout: checkout});
+            this.setState({checkout: checkout})
         });
     }
 
-    addItemToCheckout = async () => {
+    addItemToCheckout = async (variantId, quantity) => {
 
+        const lineItemsToAdd = [
+            {
+                variantId,
+                quantity: parseInt(quantity, 10)
+            }        
+        ];
+
+        const checkout = await client.checkout.addLineItems(
+
+            this.state.checkout.id,
+            lineItemsToAdd
+        );
+
+        this.setState({ checkout: checkout })
+
+        this.openCart()
     }
 
     removeLineItem = async (lineItemIdsToRemove) => {
 
+        const checkout = await client.checkout.removeLineItems(this.state.checkout.id, lineItemIdsToRemove)
+
+        this.setState({ checkout: checkout })
     }
 
     fetchAllProducts = async () => {
 
         client.product.fetchAll().then((products) => {
 
-            this.setState({products: products});
-        });
+            this.setState({products: products})
+        })
     }
 
     fetchProductWithHandle = async (handle) => {
 
         client.product.fetchByHandle(handle).then((product) => {
         
-            this.setState({product: product});
+            this.setState({product: product})
         });
     }
 
@@ -102,7 +121,7 @@ class shopProvider extends Component {
     }
 }
 
-const ShopConsumer = ShopContext.Consumer;
+const ShopConsumer = ShopContext.Consumer
 
 export { ShopConsumer, ShopContext }
 

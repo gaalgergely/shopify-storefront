@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Flex, Text, Icon, Image } from '@chakra-ui/react'
+import { Flex, Icon, Image } from '@chakra-ui/react'
 import { ShopContext } from '../context/shopContext'
 import { MdMenu, MdShoppingBasket } from 'react-icons/md'
 
