@@ -1,10 +1,22 @@
 import React from 'react'
+import { Box, Flex, Center, Text, Heading } from '@chakra-ui/react'
 
-const RichText = () => {
+const RichText = ({ heading, text }) => {
     return (
-        <div>
-            
-        </div>
+        <Box p="1rem">
+            <Center
+                display="flex"
+                flexDir="column"
+                textAlign="center"
+            >
+                <Heading py="2.5rem">
+                    {heading && heading}
+                </Heading>
+                <Text pb="2rem">
+                    {text && text}
+                </Text>
+            </Center>
+        </Box>
     )
 }
 
