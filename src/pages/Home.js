@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Box, Grid, Text, Image } from '@chakra-ui/react'
 
 import { ShopContext } from '../context/shopContext'
+import Hero from '../components/Hero'
+import ImageWithText from '../components/ImageWithText'
 
 const Home = () => {
 
@@ -18,6 +20,7 @@ const Home = () => {
 
     return (
         <Box>
+            <Hero />
             <Grid templateColumns="repeat(3, 1fr)">
             {
                 products.map(product => (
@@ -31,6 +34,7 @@ const Home = () => {
                 ))
             }
             </Grid>
+            <ImageWithText reverse image="https://cdn.pixabay.com/photo/2016/03/09/09/22/meeting-1245776_960_720.jpg" heading="Heading" />
         </Box>
     )
 }
