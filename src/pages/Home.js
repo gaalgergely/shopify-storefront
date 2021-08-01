@@ -25,16 +25,39 @@ const Home = () => {
             {
                 products.map(product => (
                     <Link to={`/products/${product.handle}`} key={product.id}>
-                        <Box _hover={{ opacity: '80%' }} textAlign="center">
+                        <Box _hover={{ opacity: '80%' }} textAlign="center" position="relative">
                             <Image src={product.images[0].src} />
-                            <Text>{product.title}</Text>
-                            <Text>{product.variants[0].price}</Text>
+                            <Text 
+                                position="absolute"
+                                bottom="15%"
+                                w="100%"
+                                fontWeight="bold"
+                            >
+                                {product.title}
+                            </Text>
+                            <Text
+                                position="absolute"
+                                bottom="5%"
+                                w="100%"
+                                color="gray.500"
+                            >
+                                {product.variants[0].price}
+                            </Text>
                         </Box>                    
                     </Link>
                 ))
             }
             </Grid>
-            <ImageWithText reverse image="https://cdn.pixabay.com/photo/2016/03/09/09/22/meeting-1245776_960_720.jpg" heading="Heading" />
+            <ImageWithText reverse 
+                image="https://cdn.pixabay.com/photo/2016/03/09/09/22/meeting-1245776_960_720.jpg" 
+                heading="Heading" 
+                text="Lorem ipsum dolor sit amet" 
+            />
+            <ImageWithText 
+                image="https://cdn.pixabay.com/photo/2016/03/09/09/22/meeting-1245776_960_720.jpg" 
+                heading="Second Heading" 
+                text="Lorem ipsum dolor sit amet" 
+            />
         </Box>
     )
 }
